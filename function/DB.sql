@@ -3,7 +3,7 @@ create table users (
     u_id varchar2(20) not null,
     u_pw varchar2(20) not null,
     nick varchar2(20) unique,
-    test_level number(1) not null
+    test_level number(1)
 );
 
 create sequence seq_users;
