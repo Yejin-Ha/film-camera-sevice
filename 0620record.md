@@ -35,22 +35,22 @@
 ## 화면 구상
 > 레벨을 측정하는 설문조사 화면
 
-<img src="./img/0620_설문조사화면.PNG" width="70%">
+<img src="./img/0620_설문조사화면.png" width="70%">
 
 > 회원가입 화면
 
-<img src="./img/0620_회원가입.PNG" width="70%">
+<img src="./img/0620_회원가입.png" width="70%">
 
 > 로그인 화면
 
-<img src="./img/0620_로그인.PNG" width="70%">
+<img src="./img/0620_로그인.png" width="70%">
 
 > 로그인 후 필름카메라를 추천하는 화면
 
-<img src="./img/0620_카메라추천.PNG" width="70%">
+<img src="./img/0620_카메라추천.png" width="70%">
 
 > 왼쪽 하단의 필름 추천을 누르면 나오는 팝업 화면
 
-<img src="./img/0620_필름추천.PNG" width="70%">
+<img src="./img/0620_필름추천.png" width="70%">
 
 
