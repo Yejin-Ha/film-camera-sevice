@@ -9,15 +9,13 @@
 </head>
 
 <body>
-    <!-- <form> -->
     <label for="fname">insert id :</label><br>
-    <input type="text" id="insert_id" value="hyj"><br>
+    <input type="text" id="insert_id""><br>
     <label for="lname">insert password :</label><br>
-    <input type="text" id="insert_pw" value="asdf"><br><br>
+    <input type="text" id="insert_pw" ><br><br>
     <button type="submit" onclick="login()"> login </button>
-    <button type="submit" > 
-        <a href="#" onclick="user_login()">카메라 추천받으러 가기</a> </button>
-    <!-- </form> -->
+    <!-- 사용 안하는 기능 -->
+    <button type="submit" onclick="user_login()">카메라 추천받으러 가기 </button>
 
     <script>
         function login() {
@@ -27,6 +25,7 @@
                     all = JSON.parse(this.responseText);
                     console.log(all.access_token);
                     localStorage.setItem("jwt-auth-token", "Bearer " + all.access_token);
+                    location.href="loginurl";
                 }
             };
             xhttp.open('POST', 'login');
