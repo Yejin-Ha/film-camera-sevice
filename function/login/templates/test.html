@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <form> -->
+    <label for="fname">insert id :</label><br>
+    <input type="text" id="insert_id" value="hyj"><br>
+    <label for="lname">insert password :</label><br>
+    <input type="text" id="insert_pw" value="asdf"><br><br>
+    <button type="submit" onclick="login()"> login </button>
+    <button type="submit" > 
+        <a href="#" onclick="user_login()">카메라 추천받으러 가기</a> </button>
+    <!-- </form> -->
+
+    <script>
+        function login() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    all = JSON.parse(this.responseText);
+                    console.log(all.access_token);
+                    localStorage.setItem("jwt-auth-token", "Bearer " + all.access_token);
+                }
+            };
+            xhttp.open('POST', 'login');
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value);
+        };
+
+        function jwtuse() {
+            let token = localStorage.getItem("jwt-auth-token");
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // data = JSON.parse(this.responseText);
+                    alert('거절')
+                }
+            };
+            xhttp.open("GET", "jwt_confirm");
+            xhttp.setRequestHeader("Authorization", "Bearer " + token);
+            xhttp.send();
+        };
+
+        function user_login() {
+            let token = localStorage.getItem("jwt-auth-token");
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // data = JSON.parse(this.responseText);
+                    alert('거절')
+                    location.href="loginurl";
+                }
+            };
+            xhttp.open("GET", "login");
+            xhttp.setRequestHeader("Authorization", token);
+            xhttp.send();
+        };
+    </script>
+</body>
+
+</html>
