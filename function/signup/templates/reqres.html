@@ -65,6 +65,14 @@
         }
 
         function nickcheck() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200){
+                    console.log('중복이 아닙니다.')
+                }
+            };
+            xhttp.open("POST", "checknick");
+            xhttp.send();
 
         }
     </script>
