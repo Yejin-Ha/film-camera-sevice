@@ -9,7 +9,7 @@ class Camera:
 
             try:
                 cur.execute("select * from users where u_id=:id", id=user.getId()) 
-                row = cur.fetchone()   
+                row = cur.fetchone()
                 if row:
                     return row
                 else:
