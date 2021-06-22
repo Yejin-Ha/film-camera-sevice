@@ -1,0 +1,14 @@
+options(load=-1, errors=-1)
+load data
+infile 'C:\Users\YEIN\Desktop\python\Mini_Project_01\Tea-Time\database\CAMERA.csv'
+append into table cameras
+fields terminated by ','  
+(
+    brand,
+    model,
+    price,
+    category,
+    shutter,
+    exposure,
+    test_level
+)

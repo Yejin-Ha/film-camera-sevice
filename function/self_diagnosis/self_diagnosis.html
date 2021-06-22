@@ -53,184 +53,142 @@
             휴대성 <br>
         </div>
         <div class="box2">
-            1 <input type="range" min="1" max="5" /> 5<br>
-            1 <input type="range" min="1" max="5" /> 5<br>
-            1 <input type="range" min="1" max="5" /> 5<br>
-            1 <input type="range" min="1" max="5" /> 5<br>
+            1 <input type="range" min="1" max="5" onblur="perfer1(this.value)"> 5<br>
+            1 <input type="range" min="1" max="5" onblur="perfer2(this.value)"> 5<br>
+            1 <input type="range" min="1" max="5" onblur="perfer3(this.value)"> 5<br>
+            1 <input type="range" min="1" max="5" onblur="perfer4(this.value)"> 5<br>
         </div>
-        <!-- <input type="checkbox" name="interest" value="1" /> 가격
-            <input type="checkbox" name="interest" value="2" />웹프로그래밍
-            <input type="checkbox" name="interest" value="3" />데이터베이스
-            <input type="checkbox" name="interest" value="4" />기계학습 -->
+
+        <!-- <script>
+            per = [0,0,0,0]
+            function perfer1(a){
+                per[0] = a
+            }
+
+        </script> -->
+
     </fieldset> <br>
     <fieldset class="survey" name="score" style="width: 50%;">
         <legend><b>더 나은 카메라 선택을 위해 아래 설문지를 작성해주세요</b></legend><br>
 
         <div class="question" id="no_1"><br>
             <p>SLR 카메라의 뜻을 알고있나요?</p>
-            <input type="radio" id="no1_o" name="no1" value="O">
+            <input type="radio" id="no1_o" name="no1" value="O" onclick="submit1(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no1" value="X">
+            <input type="radio" id="no1_x" name="no1" value="X" onclick="submit1(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_2"><br>
             <p>미놀타, 펜탁스라는 브랜드를 알고있나요?</p>
-            <input type="radio" id="no1_o" name="no2" value="O">
+            <input type="radio" id="no1_o" name="no2" value="O" onclick="submit2(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no2" value="X">
+            <input type="radio" id="no1_x" name="no2" value="X" onclick="submit2(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_3"><br>
             <p>수치에 따른 조리개의 변화를 알고있나요?</p>
-            <input type="radio" id="no1_o" name="no3" value="O">
+            <input type="radio" id="no1_o" name="no3" value="O" onclick="submit3(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no3" value="X">
+            <input type="radio" id="no1_x" name="no3" value="X" onclick="submit3(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_4"><br>
             <p>필름카메라를 2년 이상 사용해보셨나요?</p>
-            <input type="radio" id="no1_o" name="no4" value="O">
+            <input type="radio" id="no1_o" name="no4" value="O" onclick="submit4(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no4" value="X">
+            <input type="radio" id="no1_x" name="no4" value="X" onclick="submit4(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_5"><br>
             <p>필름카메라를 두 개 이상 보유하고 있으신가요?</p>
-            <input type="radio" id="no1_o" name="no5" value="O">
+            <input type="radio" id="no1_o" name="no5" value="O" onclick="submit5(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no5" value="X">
+            <input type="radio" id="no1_x" name="no5" value="X" onclick="submit5(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_6"><br>
             <p>노출의 3요소를 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no6" value="O">
+            <input type="radio" id="no1_o" name="no6" value="O" onclick="submit6(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no6" value="X">
+            <input type="radio" id="no1_x" name="no6" value="X" onclick="submit6(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_7"><br>
             <p>촬영모드 중 B모드의 의미에 대해 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no7" value="O">
+            <input type="radio" id="no1_o" name="no7" value="O" onclick="submit7(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no7" value="X">
+            <input type="radio" id="no1_x" name="no7" value="X" onclick="submit7(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_8"><br>
             <p>현재 판매되는 필름의 대략적인 시세를 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no8" value="O">
+            <input type="radio" id="no1_o" name="no8" value="O" onclick="submit8(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no8" value="X">
+            <input type="radio" id="no1_x" name="no8" value="X" onclick="submit8(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_9"><br>
             <p>네거티브 필름과 포지티브 필름의 차이를 알고 계신가요?</p>
-            <input type="radio" id="no11" name="no9" value="O" onclick="submit()">&nbsp;O
-            <!-- <label for="no1_o" class="no">O</label> -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" id="no12" name="no9" value="X" onclick="submit()">&nbsp;X
-            <!-- <label for="no1_x" class="no">X</label><br><br> -->
+            <input type="radio" id="no1_o" name="no9" value="O" onclick="submit9(this.value)" required>
+            <label for="no1_o" class="no">O</label>
+            <input type="radio" id="no1_x" name="no9" value="X" onclick="submit9(this.value)" required>
+            <label for="no1_x" class="no">X</label><br><br>
         </div>
 
-        <input type="submit" value="결과보기">
+        <input type="button" value="결과보기" onclick="final()">
+    </fieldset>
 
-        <input type="text" id="result">
+    <script>
+        ans_list = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        function submit1(ans1) {
+            ans_list[0] = ans1;
+        };
 
-        <script>
-            function submit() {
-                var x = document.getElementsByName("no9").value = "hahaha";
-                for (i = 1; i < 3; i++) {
+        function submit2(ans2) {
+            ans_list[1] = ans2;
+        };
 
-                    if (document.getElementsByName("no9")[i].value == true) {
+        function submit3(ans3) {
+            ans_list[2] = ans3;
+        };
 
-                        console.log(x)
-                    }
-                }
-            }
+        function submit4(ans4) {
+            ans_list[3] = ans4;
+        };
 
+        function submit5(ans5) {
+            ans_list[4] = ans5;
+        };
 
-        </script>
+        function submit6(ans6) {
+            ans_list[5] = ans6;
+        };
 
-        <!-- <script>
-                    let score = []
-                    function getScore(event) {
-                        // document.getElementById('result').innerText = event.target.value;
-                        document.getElementById('result').append(event.target.values)
-            
-                    }
-                </script> -->
+        function submit7(ans7) {
+            ans_list[6] = ans7;
+        };
 
+        function submit8(ans8) {
+            ans_list[7] = ans8;
+        };
 
-        <!-- <div class="answer" id="answer" style="width: 20%;">
-            <br>
-            <form action="submit()">
-                <input type="radio" id="no1_o" name="no1" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no1" value="X" required>
-                <label for="no1_x">X</label><br><br>
+        function submit9(ans9) {
+            ans_list[8] = ans9;
+        };
 
-                <input type="radio" id="no1_o" name="no2" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no2" value="X" required>
-                <label for="no1_x">X</label><br><br>
-
-                <input type="radio" id="no1_o" name="no3" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no3" value="X" required>
-                <label for="no1_x">X</label><br><br>
-
-                <input type="radio" id="no1_o" name="no4" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no4" value="X" required>
-                <label for="no1_x">X</label><br><br>
-
-                <input type="radio" id="no1_o" name="no5" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no5" value="X" required>
-                <label for="no1_x">X</label><br><br>
-
-                <input type="radio" id="no1_o" name="no6" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no6" value="X" required>
-                <label for="no1_x">X</label><br><br>
-
-                <input type="radio" id="no1_o" name="no7" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no7" value="X" required>
-                <label for="no1_x">X</label><br><br>
-                
-                <input type="radio" id="no1_o" name="no8" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no8" value="X" required>
-                <label for="no1_x">X</label><br><br>
-                
-                <input type="radio" id="no1_o" name="no9" value="O" required>
-                <label for="no1_o">O</label>
-                <input type="radio" id="no1_x" name="no9" value="X" required>
-                <label for="no1_x">X</label>
-                <input type="submit" value="결과보기" >
-            </form> -->
-
-        <!-- </div>
-                <div class="submit">
-                    <form action="/action_page.php"></form>
-                    <input type="submit" value="결과 보기">
-                </div> -->
-
-        <!-- <div id="result"></div>
-    </fieldset> <br> 기타 의견 사항 <br> <textarea cols="100" rows="5" placeholder="의견을 입력하세요.">의견을 입력하세요.</textarea> <br>
-    <input type="button" value="확인" /> <input type="reset" value="취소" /> -->
-
-
-
-
-
+        function final() {
+            var result = ans_list.filter(n => n === "O").length;
+            alert(result)
+        }
+    </script>
 </body>
 
 </html>
