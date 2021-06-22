@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h2 style="color: violet;">필름카메라 회원가입</h2>
+
+    <!-- <form action="signup" method="post"> -->
+
+    <label>아이디:</label><br>
+    <input type="text" id="newU_id"><button onclick="idcheck()">중복확인</button><br><br>
+
+    <label>비밀번호 및 비밀번호 확인:</label><br>
+    <input type="password" id="newU_pw">
+
+    <label></label><br>
+    <input type="password" id="pw1"><br><br>
+
+    <label>닉네임:</label><br>
+    <input type="text" id="newNick"><button onclick="nickcheck()">중복확인</button><br><br>
+
+
+    <button id="insertBtn()" onclick="signup()">가입하기</button>
+    <input type="submit" value="취소">
+    <!-- </form> -->
+    <script>
+        function signup() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // data = this.responseText;
+                    // data = JSON.parse(data);
+                    console.log('성공')
+                    // document.getElementById("u_id").value = document.getElementById("newU_id").value;
+                    // document.getElementById("u_pw").value = data.u_pw;
+                    // document.getElementById("nick").value = data.nick;
+                }
+            };
+            xhttp.open("POST", "signup");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            queryString = "u_id=" + document.getElementById("newU_id").value +
+                "&u_pw=" + document.getElementById("newU_pw").value +
+                "&nick=" + document.getElementById("newNick").value;
+            xhttp.send(queryString);
+        }
+
+        function idcheck() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    console.log(data);
+                    // data = Boolean(data);
+                    // console.log(typeof(data));
+                    // console.log(data);
+                    if (data == 'False') {
+                        alert('중복아님 제')
+                    } else if (data == 'True') {
+                        alert('중복')
+                    }
+                }
+
+            };
+            xhttp.open("POST", "checkid");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("u_id=" + document.getElementById("newU_id").value);
+        }
+
+        function nickcheck() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    console.log(data);
+                    if (data == 'False') {
+                        alert('중복아님 제발')
+                    }
+                    else if (data == 'True') {
+                        alert('중복')
+                    }
+                }
+            };
+
+            xhttp.open("POST", "checknick");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nick=" + document.getElementById("newNick").value);
+
+        }
+    </script>
+
+    </form>
+</body>
+
+</html>
