@@ -1,6 +1,6 @@
 options(load=-1, errors=-1)
 load data
-infile 'C:\Users\son\Desktop\Tea-Time\database\CAMERA.csv'
+infile 'C:\Users\Playdata\Desktop\Mini Project\Tea-Time\database\CAMERA.csv'
 append into table cameras
 fields terminated by ','  
 (

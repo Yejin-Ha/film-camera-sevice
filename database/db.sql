@@ -12,3 +12,12 @@ create sequence seq_users;
 insert into users values (seq_users.nextval, 'hyj', 'asdf', '예진', 3);
 commit;
 
+create table cameras (
+    brand varchar2(30) not null,
+    model varchar2(30) primary key,
+    price number(3) not null,
+    category varchar2(20) not null,
+    shutter number(5) not null,
+    exposure number(1) not null,
+    test_level number(1) not null
+);

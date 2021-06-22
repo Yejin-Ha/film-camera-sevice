@@ -1,10 +1,10 @@
 
-SQL*Loader: Release 11.2.0.2.0 - Production on È­ 6¿ù 22 14:48:43 2021
+SQL*Loader: Release 11.2.0.2.0 - Production on È­ 6ï¿½ï¿½ 22 14:52:24 2021
 
 Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
 
 Control File:   camera_table.txt
-Data File:      C:\Users\son\Desktop\Tea-Time\database\CAMERA.csv
+Data File:      C:\Users\YEIN\Desktop\python\Mini_Project_01\Tea-Time\database\CAMERA.csv
   Bad File:     CAMERA.bad
   Discard File:  none specified
  
@@ -49,8 +49,8 @@ Total logical records read:            51
 Total logical records rejected:         1
 Total logical records discarded:        0
 
-Run began on È­ 6¿ù  22 14:48:43 2021
-Run ended on È­ 6¿ù  22 14:48:44 2021
+Run began on È­ 6ï¿½ï¿½  22 14:52:24 2021
+Run ended on È­ 6ï¿½ï¿½  22 14:52:24 2021
 
-Elapsed time was:     00:00:00.60
-CPU time was:         00:00:00.14
+Elapsed time was:     00:00:00.11
+CPU time was:         00:00:00.08
