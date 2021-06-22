@@ -1,0 +1,56 @@
+
+SQL*Loader: Release 11.2.0.2.0 - Production on 화 6월 22 14:52:24 2021
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   camera_table.txt
+Data File:      C:\Users\YEIN\Desktop\python\Mini_Project_01\Tea-Time\database\CAMERA.csv
+  Bad File:     CAMERA.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: ALL
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table CAMERAS, loaded from every logical record.
+Insert option in effect for this table: APPEND
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+BRAND                               FIRST     *   ,       CHARACTER            
+MODEL                                NEXT     *   ,       CHARACTER            
+PRICE                                NEXT     *   ,       CHARACTER            
+CATEGORY                             NEXT     *   ,       CHARACTER            
+SHUTTER                              NEXT     *   ,       CHARACTER            
+EXPOSURE                             NEXT     *   ,       CHARACTER            
+TEST_LEVEL                           NEXT     *   ,       CHARACTER            
+
+Record 1: Rejected - Error on table CAMERAS, column PRICE.
+ORA-01722: invalid number
+
+
+Table CAMERAS:
+  50 Rows successfully loaded.
+  1 Row not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 115584 bytes(64 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:            51
+Total logical records rejected:         1
+Total logical records discarded:        0
+
+Run began on 화 6월  22 14:52:24 2021
+Run ended on 화 6월  22 14:52:24 2021
+
+Elapsed time was:     00:00:00.11
+CPU time was:         00:00:00.08
