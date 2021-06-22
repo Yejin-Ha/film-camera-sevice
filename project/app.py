@@ -50,7 +50,7 @@ def login_proc():
 @app.route('/loginurl', methods=['get'])
 def index2():
     print('login Page')
-    return render_template('login.html')
+    return render_template('camera.html')
 
 
 if __name__ == "__main__":
