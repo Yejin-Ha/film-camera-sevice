@@ -14,21 +14,21 @@
 
     <!-- <form action="signup" method="post"> -->
 
-        <label>아이디:</label><br>
-        <input type="text" id="newU_id" name="u_id"><button onclick="idcheck()">중복확인</button><br><br>
+    <label>아이디:</label><br>
+    <input type="text" id="newU_id"><button onclick="idcheck()">중복확인</button><br><br>
 
-        <label>비밀번호 및 비밀번호 확인:</label><br>
-        <input type="password" id="newU_pw" name="u_pw">
+    <label>비밀번호 및 비밀번호 확인:</label><br>
+    <input type="password" id="newU_pw">
 
-        <label></label><br>
-        <input type="password" id="pw1" name="pw1"><br><br>
+    <label></label><br>
+    <input type="password" id="pw1"><br><br>
 
-        <label>닉네임:</label><br>
-        <input type="text" id="newNick" name="nick"><button onclick="nickcheck()">중복확인</button><br><br>
+    <label>닉네임:</label><br>
+    <input type="text" id="newNick"><button onclick="nickcheck()">중복확인</button><br><br>
 
 
-        <button id="insertBtn()" onclick="signup()">가입하기</button>
-        <input type="submit" value="취소">
+    <button id="insertBtn()" onclick="signup()">가입하기</button>
+    <input type="submit" value="취소">
     <!-- </form> -->
     <script>
         function signup() {
@@ -37,7 +37,7 @@
                 if (this.readyState == 4 && this.status == 200) {
                     // data = this.responseText;
                     // data = JSON.parse(data);
-                    console.log('tjdrhd')
+                    console.log('성공')
                     // document.getElementById("u_id").value = document.getElementById("newU_id").value;
                     // document.getElementById("u_pw").value = data.u_pw;
                     // document.getElementById("nick").value = data.nick;
@@ -55,24 +55,43 @@
         function idcheck() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200){
-                    console.log('중복이 아닙니다.')
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    console.log(data);
+                    // data = Boolean(data);
+                    // console.log(typeof(data));
+                    // console.log(data);
+                    if (data == 'False') {
+                        alert('중복아님 제')
+                    } else if (data == 'True') {
+                        alert('중복')
+                    }
                 }
+
             };
             xhttp.open("POST", "checkid");
-            xhttp.send();
-
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("u_id=" + document.getElementById("newU_id").value);
         }
 
         function nickcheck() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200){
-                    console.log('중복이 아닙니다.')
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    console.log(data);
+                    if (data == 'False') {
+                        alert('중복아님 제발')
+                    }
+                    else if (data == 'True') {
+                        alert('중복')
+                    }
                 }
             };
+
             xhttp.open("POST", "checknick");
-            xhttp.send();
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nick=" + document.getElementById("newNick").value);
 
         }
     </script>

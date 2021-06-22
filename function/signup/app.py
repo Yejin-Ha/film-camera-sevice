@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, json, render_template, request, jsonify
 from dao import USERDAO
 from dto import USERDTO
 
@@ -22,20 +22,28 @@ def insertuser():
 @app.route('/checkid', methods = ["POST"])
 def selectid():
     dao = USERDAO()
-    dto = USERDTO(request.form.get("u_id"))
-    dao.userinsert(dto)
-
-    return jsonify(result=200)
+    # dto = USERDTO(request.form.get("u_id"))
+    check = dao.id_check(request.form.get("u_id"))
+    if check is None:
+        print('hi')
+        return jsonify(True)
+    else:
+        print('bye')
+        return jsonify(False)
 
 @app.route('/checknick', methods = ["POST"])
 def selectnick():
     dao = USERDAO()
-    dto = USERDTO(request.form.get("nick"))
-    dao.userinsert(dto)
+    check = dao.nick_check(request.form.get("nick"))
+    if check is None:
+        print('hi1')
+        return jsonify(True)
+    else:
+        print('bye1')
+        return jsonify(False)
 
-    return jsonify(result=200)
+    
     
 
 if __name__=='__main__':
     app.run(debug=True, host="127.0.0.1", port="5000")
-    
