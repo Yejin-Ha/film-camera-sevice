@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="{{ url_for('static', filename='js/test.js') }}"></script> -->
+</head>
+
+<body>
+    <h2 style="color: aqua;">추천 카메라 확인하기</h2>
+
+
+    <label>당신의 레벨을 입력하세요</label><br>
+    <h5">(낮은 가격순으로 나옵니다.)</h5>
+    <input type="text" id="newTest_level"><button onclick="findcam()">추천카메라 확인</button>
+
+    <br>
+    <hr><br>
+    <table id="demo"></table>
+
+    <!-- <br><hr><br> -->
+    <script>
+        function findcam() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    console.log(data)
+
+                    tab = `<table border="1">
+                <tr><th>이미지</th><th>브랜드</th><th>모델명</th><th>가격</th><th>카테고리</th><th>셔터</th><th>노출측정방식</th><th>레벨</th></tr>`;
+
+                    for (no in data) {
+                        console.log('hi123123')
+                        pic = data[no].brand.toLowerCase() +"_"+data[no].model.toLowerCase()
+                        console.log(pic);
+                        tab = tab + `<tr>
+                            <td><img src="static/images/${pic}.jpg" width="200" heigh="200""></td>
+                    <td>${data[no].brand}</td>
+                    <td>${data[no].model}</td>
+                    <td>${data[no].price}만원</td>
+                    <td>${data[no].category}</td>
+                    <td>${data[no].shutter}</td>
+                    <td>${data[no].exposure}</td>
+                    <td>${data[no].test_level}</td>
+                </tr>`;
+                        // console.log(brand + "_" + model)
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("demo").innerHTML = tab;
+                };
+            };
+            xhttp.open("POST", "camfind");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("test_level=" + document.getElementById("newTest_level").value);
+        }
+
+    </script>
+</body>
+
+</html>
