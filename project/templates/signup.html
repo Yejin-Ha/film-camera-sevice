@@ -26,10 +26,11 @@
     .login_box {
         border: 1px solid;
         width: 50%;
-        text-align: center;
+        padding: 40px;
+        /* text-align: center;
         height: 20vh;
         padding-top: 5%;
-        min-height: 225px;
+        min-height: 225px; */
     }
 </style>
 
@@ -46,7 +47,7 @@
         <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
             <a href="#" class="w3-bar-item w3-button">카메라 추천받기</a>
             <a href="#" class="w3-bar-item w3-button">카메라 찾기</a>
-            <a href="#" class="w3-bar-item w3-button" onclick="linktosignup()">회원가입</a>
+            <a href="#" class="w3-bar-item w3-button">회원가입</a>
             <a href="#" class="w3-bar-item w3-button" onclick="selftest()">Self Level Test</a>
 
         </div>
@@ -71,22 +72,32 @@
 
         <!-- Top header -->
         <header class="w3-container w3-xlarge">
-            <p class="w3-left">LOGIN</p>
+            <p class="w3-left">Sign Up</p>
         </header>
 
         <div style="margin-left: 25%;height: 100%vh;">
             <div class="login_box">
-                <label for="fname">id :</label><br>
-                <input type="text" id="insert_id""><br>
-                <label for=" lname">password :</label><br>
-                <input type="password" id="insert_pw"><br><br>
-                <button type="submit" onclick="login()"> login </button>
+
+                <label>아이디:</label><br>
+                <input type="text" id="newU_id"><button onclick="idcheck()">중복확인</button><br><br>
+
+                <label>비밀번호 :</label><br>
+                <input type="password" id="newU_pw"><br><br>
+
+                <label>닉네임:</label><br>
+                <input type="text" id="newNick"><button onclick="nickcheck()">중복확인</button><br><br>
+
+                <button onclick="signup()">가입하기</button>
+                <input type="submit" value="취소">
             </div>
         </div>
     </div>
 
 
     <script>
+        check_id = false;
+        check_nick = false;
+
         function linktosignup() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -98,6 +109,66 @@
             xhttp.send();
         }
 
+        function signup() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (check_id && check_nick) {
+                            console.log('sign up 성공')
+                    } else {
+                        alert('중복된 id 또는 닉네임을 사용하였습니다.');
+                    }
+                }
+            };
+            xhttp.open("POST", "signup");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            
+            queryString = "u_id=" + document.getElementById("newU_id").value +
+                "&u_pw=" + document.getElementById("newU_pw").value +
+                "&nick=" + document.getElementById("newNick").value;
+            xhttp.send(queryString);
+        }
+
+        function idcheck() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    console.log('중복확인', data);
+                    if (data) {
+                        alert('사용 가능한 id')
+                        check_id = true;
+                    } else {
+                        alert('중복된 id')
+                    }
+                }
+            };
+            xhttp.open("POST", "checkid");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("u_id=" + document.getElementById("newU_id").value);
+        }
+
+        function nickcheck() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    console.log('중복확인', data);
+                    if (data) {
+                        alert('사용 가능한 닉네임')
+                        check_nick = true;
+                    }
+                    else {
+                        alert('중복된 닉네임')
+                    }
+                }
+
+            };
+            xhttp.open("POST", "checknick");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nick=" + document.getElementById("newNick").value);
+        }
+
         function login() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -105,7 +176,6 @@
                     all = JSON.parse(this.responseText);
                     console.log('hi')
                     console.log(all.access_token);
-                    // if
                     localStorage.setItem("jwt-auth-token", "Bearer " + all.access_token);
                     location.href = "user_login";
                 }
@@ -125,6 +195,16 @@
             xhttp.open('GET', 'selftest');
             xhttp.send();
         };
+
+        // Accordion 
+        function myAccFunc() {
+            var x = document.getElementById("demoAcc");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
 
         // Open and close sidebar
         function w3_open() {
