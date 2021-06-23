@@ -1,10 +1,10 @@
 
-SQL*Loader: Release 11.2.0.2.0 - Production on È­ 6ï¿½ï¿½ 22 14:52:24 2021
+SQL*Loader: Release 11.2.0.2.0 - Production on ¼ö 6¿ù 23 09:39:21 2021
 
 Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
 
 Control File:   camera_table.txt
-Data File:      C:\Users\YEIN\Desktop\python\Mini_Project_01\Tea-Time\database\CAMERA.csv
+Data File:      C:\Users\son\Desktop\Tea-Time\database\CAMERA.csv
   Bad File:     CAMERA.bad
   Discard File:  none specified
  
@@ -35,7 +35,7 @@ ORA-01722: invalid number
 
 
 Table CAMERAS:
-  50 Rows successfully loaded.
+  59 Rows successfully loaded.
   1 Row not loaded due to data errors.
   0 Rows not loaded because all WHEN clauses were failed.
   0 Rows not loaded because all fields were null.
@@ -45,12 +45,12 @@ Space allocated for bind array:                 115584 bytes(64 rows)
 Read   buffer bytes: 1048576
 
 Total logical records skipped:          0
-Total logical records read:            51
+Total logical records read:            60
 Total logical records rejected:         1
 Total logical records discarded:        0
 
-Run began on È­ 6ï¿½ï¿½  22 14:52:24 2021
-Run ended on È­ 6ï¿½ï¿½  22 14:52:24 2021
+Run began on ¼ö 6¿ù  23 09:39:21 2021
+Run ended on ¼ö 6¿ù  23 09:39:21 2021
 
-Elapsed time was:     00:00:00.11
-CPU time was:         00:00:00.08
+Elapsed time was:     00:00:00.32
+CPU time was:         00:00:00.20

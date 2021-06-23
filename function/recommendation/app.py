@@ -13,9 +13,7 @@ def index():
 @app.route('/camfind', methods=["POST"])
 def selectcam():
     dao = LEVELDAO()
-    rows = dao.levelselect(request.form.get("test_level"))
-    print(rows)
-    return jsonify(rows)
+    return dao.levelselect(request.form.get("test_level"))
 
 
 if __name__ == "__main__":

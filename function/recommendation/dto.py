@@ -21,7 +21,7 @@ class LEVELDTO:
         self.model = newmodel
 
     def getPrice(self):
-        return self.Price
+        return self.price
 
     def setPrice(self, newprice):
         self.price = newprice
