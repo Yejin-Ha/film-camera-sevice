@@ -11,3 +11,8 @@
 2. 화면 css 처리(좀 더 이쁘게)
 3. notion 
 
+1. 카메라 추천 페이지(index)
+2. 회원가입 페이지(signup)
+3. 자가진단 페이지(selftest)
+4. 카메라 찾기 페이지(search)
+5. pop up 기능

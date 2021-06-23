@@ -71,22 +71,66 @@
 
         <!-- Top header -->
         <header class="w3-container w3-xlarge">
-            <p class="w3-left">LOGIN</p>
+            <p class="w3-left">Camera Recommendation</p>
         </header>
 
-        <div style="margin-left: 25%;height: 100%vh;">
-            <div class="login_box">
-                <label for="fname">id :</label><br>
-                <input type="text" id="insert_id""><br>
-                <label for=" lname">password :</label><br>
-                <input type="password" id="insert_pw"><br><br>
-                <button type="submit" onclick="login()"> login </button>
-            </div>
-        </div>
+        <h2 style="color: aqua;">추천 카메라 확인하기</h2>
+
+        <label>당신의 레벨을 입력하세요</label>
+        <br>
+        <h5">(낮은 가격순으로 나옵니다.)</h5>
+            <input type="text" id="newTest_level"><button onclick="findcam()">추천카메라 확인</button>
+
+            <br>
+            <hr><br>
+            <table id="demo"></table>
+
+
+        id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.<br>
+        id : <input type="text" id="input_id"> / pw : <input type="password" id="input_pw"> <button onclick="findcam()">카메라 추천받기</button>
+
+                <br>
+                <hr><br>
+                <table id="demo"></table>
+
     </div>
 
-
     <script>
+        // 카메라 추천하는 함수
+        function findcam() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = JSON.parse(this.responseText);
+                    console.log(data)
+
+                    tab = `<table border="1">
+                <tr><th>이미지</th><th>브랜드</th><th>모델명</th><th>가격</th><th>카테고리</th><th>셔터</th><th>노출측정방식</th><th>레벨</th></tr>`;
+
+                    for (no in data) {
+                        console.log('hi123123')
+                        pic = data[no].brand.toLowerCase() + "_" + data[no].model.toLowerCase()
+                        console.log(pic);
+                        tab = tab + `<tr>
+                            <td><img src="static/image/cameras/${pic}.jpg" width="200" heigh="200" alt="Not Found"></td>
+                    <td>${data[no].brand}</td>
+                    <td>${data[no].model}</td>
+                    <td>${data[no].price}만원</td>
+                    <td>${data[no].category}</td>
+                    <td>${data[no].shutter}</td>
+                    <td>${data[no].exposure}</td>
+                    <td>${data[no].test_level}</td>
+                </tr>`;
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("demo").innerHTML = tab;
+                };
+            };
+            xhttp.open("POST", "camfind");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("id="+document.getElementById('input_id')+"&pw="+document.getElementById('input_pw'));
+        }
+
         function linktosignup() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -125,17 +169,6 @@
             xhttp.open('GET', 'selftest');
             xhttp.send();
         };
-
-        // Open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
     </script>
 
 </body>

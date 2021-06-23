@@ -154,7 +154,7 @@
                 <input type="radio" id="no1_x" name="no5" value="X" onclick="submit5(this.value)" required>
                 <label for="no1_x" class="no">X</label><br><br>
             </div>
-           
+
             <div class="question" id="no_5"><br>
                 <p>기계식 카메라와 전자식 카메라의 차이를 알고 계신가요?</p>
                 <input type="radio" id="no1_o" name="no6" value="O" onclick="submit6(this.value)" required>
@@ -245,7 +245,7 @@
         function final() {
             var result = ans_list.filter(n => n === "O").length;
             result = parseInt(result / 2)
-            alert("레벨 "+ result +"입니다.")
+            alert("레벨 " + result + "입니다.")
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -254,7 +254,7 @@
             };
             xhttp.open('POST', 'login');
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value+"&test_level="+result);
+            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value + "&test_level=" + result);
         }
 
         function selftest() {
@@ -278,17 +278,6 @@
             xhttp.open('GET', 'signup');
             xhttp.send();
         };
-
-        // Open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
     </script>
 
 </body>

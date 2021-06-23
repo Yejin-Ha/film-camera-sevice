@@ -3,21 +3,22 @@ from flask_jwt_extended import *
 from selftest_dto import User
 from dao import Camera
 from signup_dto import USERDTO
+from camera_dto import CAMERADTO
 
 app = Flask(__name__)
-
-# app.config.update(
-#     DEBUG=True,
-#     JWT_SECRET_KEY="I'M IML"
-# )
-
-# jwt = JWTManager(app)
 
 # 첫 화면은 카메라 추천 받는 화면으로 하자
 @app.route('/', methods=['get'])
 def index():
-    print('login Page')
+    print('recommendation Page')
     return render_template('index.html')
+
+# 카메라 추천하는 기능
+@app.route('/camfind', methods=["POST"])
+def selectcam():
+    dao = Camera()
+    return dao.recommend(request.form.get("id"), request.form.get("pw"))
+
 
 # 자가진단 화면으로 이동
 @app.route('/selftest', methods=['get'])

@@ -1,8 +1,48 @@
 import cx_Oracle
 from selftest_dto import User
 from signup_dto import USERDTO
+import json
+import collections
 
 class Camera:
+    def recommend(self, id, pw):
+        data = []
+        try:
+            conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
+            cur = conn.cursor()
+            try:
+                cur.execute("select test_level from users where u_id=:id and u_pw=:pw", id=id, pw=pw)
+                check = cur.fetchone()
+                if check:
+                    cur.execute("select * from cameras where test_level= :test_level order by price", test_level=check)
+                    rows = cur.fetchall()
+                    v = []
+                    for row in rows:
+                        d = collections.OrderedDict()
+                        d['brand'] = row[0]
+                        d['model'] = row[1]
+                        d['price'] = row[2]
+                        d['category'] = row[3]
+                        d['shutter'] = row[4]
+                        d['exposure'] = row[5]
+                        d['test_level'] = row[6]
+                        v.append(d)
+
+                    data = json.dumps(v, ensure_ascii=False)
+                    return data
+                else:
+                    return "false"
+            except Exception as e:
+                print(e)
+        except Exception as e:
+            print(e)
+
+        finally:
+            cur.close()
+            conn.close()
+
+        return data
+
     def update_level(self, user):
         try:
             conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
