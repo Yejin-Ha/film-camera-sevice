@@ -7,50 +7,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .w3-sidebar a {
-        font-family: "Roboto", sans-serif
-    }
 
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .w3-wide {
-        font-family: "Montserrat", sans-serif;
-    }
-
-    .login_box {
-        border: 1px solid;
-        width: 50%;
-        text-align: center;
-        height: 20vh;
-        padding-top: 5%;
-        min-height: 225px;
-    }
-
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 60%;
-    }
-
-    td,
-    th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
 <script src="{{url_for('static', filename='js/menu.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static' , filename='css/cardstyle.css')}}">
+<link rel="stylesheet" href="{{url_for('static' , filename='css/modalstyle.css')}}">
+<link rel="stylesheet" href="{{url_for('static' , filename='css/default.css')}}">
+
 
 <body class="w3-content" style="max-width:1200px">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-collapse w3-top" style="z-index:3;width:250px;background-color: #00000057;"
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-top" style="z-index:3;width:250px;background-color: #d1dcf5b0;"
         id="mySidebar">
         <div class="w3-container w3-display-container w3-padding-16">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
@@ -65,15 +32,14 @@
 
         </div>
         <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
+        <a href="https://github.com/Yejin-Ha/film-camera-sevice" class="w3-bar-item w3-button w3-padding">Contact Us</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding" id="modal_btn">Subscribe</a>
     </nav>
 
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-        <div class="w3-bar-item w3-padding-24 w3-wide">HOME</div>
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
-                class="fa fa-bars"></i></a>
+        <div class="w3-bar-item w3-padding-24 w3-wide" onclick="linktohome()">HOME</div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"></a>
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -87,51 +53,69 @@
         <header class="w3-container w3-xlarge">
             <p class="w3-left">Search Camera</p>
         </header>
+        <hr>
+        <div class="content_box">
+            <h4>원하는 성능의 카메라를 검색합니다.</h4>
+            * 결과는 낮은 금액순으로 정렬됩니다. <br>
+            * 이미지 클릭시 카메라에 대한 검색 내용을 보실 수 있습니다.
+            <div class="select_box">
+                <div>
+                    BRAND
+                    <select id="c_brand">
+                        <option value=" "></option>
+                        <option value="NIKON">NIKON</option>
+                        <option value="CANON">CANON</option>
+                        <option value="MINOLTA">MINOLTA</option>
+                        <option value="SAMSUNG">SAMSUNG</option>
+                        <option value="PENTAX">PENTAX</option>
+                        <option value="OLYMPUS">OLYMPUS</option>
+                        <option value="CONTAX">CONTAX</option>
+                        <option value="KONICA">KONICA</option>
+                        <option value="YASHICA">YASHICA</option>
+                    </select>
+                </div>
+                <div>
+                    CATEGORY
+                    <select id="c_category">
+                        <option value=" "></option>
+                        <option value="SLR">SLR</option>
+                        <option value="RF">RANGE FINDER</option>
+                        <option value="PS">POINT&SHOOT</option>
+                    </select>
+                </div>
 
-        <h3>카메라 조회해보자!</h3>
-        <p>가격순으로 정렬됩니다.</p>
-        <p>이미지 클릭시 카메라에 대한 검색 내용을 보실 수 있습니다.</p>
-        <div>
-            BRAND
-            <select id="c_brand">
-                <option value=" "></option>
-                <option value="NIKON">NIKON</option>
-                <option value="CANON">CANON</option>
-                <option value="MINOLTA">MINOLTA</option>
-                <option value="SAMSUNG">SAMSUNG</option>
-                <option value="PENTAX">PENTAX</option>
-                <option value="OLYMPUS">OLYMPUS</option>
-                <option value="CONTAX">CONTAX</option>
-                <option value="KONICA">KONICA</option>
-                <option value="YASHICA">YASHICA</option>
-            </select>
-        </div>
-        <div>
-            CATEGORY
-            <select id="c_category">
-                <option value=" "></option>
-                <option value="SLR">SLR</option>
-                <option value="RF">RANGE FINDER</option>
-                <option value="PS">POINT&SHOOT</option>
-            </select>
+                <div>
+                    LEVEL
+                    <select id="c_level">
+                        <option value=" "></option>
+                        <option value="1">LV.1</option>
+                        <option value="2">LV.2</option>
+                        <option value="3">LV.3</option>
+                        <option value="4">LV.4</option>
+                        <option value="5">LV.5</option>
+                    </select>
+                </div>
+                <button onclick="getBrand()">카메라 보기</button>
+                <button onclick="fresh()">새로고침</button>
+            </div>
+
+            <div id="card_list"></div>
         </div>
 
-        <div>
-            LEVEL
-            <select id="c_level">
-                <option value=" "></option>
-                <option value="1">LV.1</option>
-                <option value="2">LV.2</option>
-                <option value="3">LV.3</option>
-                <option value="4">LV.4</option>
-                <option value="5">LV.5</option>
-            </select>
+        <div class="black_bg"></div>
+        <div class="modal_wrap">
+            <div class="modal_close"><a href="#">close</a></div>
+            <div>
+                <div class="modal_header">
+                    <h3>멋쟁이 개발자들에게 투자하는 방법</h3>
+                </div>
+                <div class="modal_content">
+                    카카오 3333-07-0272132 <br>
+                    케이뱅크 100115000068 <br>
+                    국민 650702-01-409140 <br>
+                </div>
+            </div>
         </div>
-        <br>
-        <button onclick="getBrand()">카메라 보기</button><br><br>
-        <button onclick="fresh()">새로고침</button>
-        <div id="cam1"></div><br>
-
     </div>
 
     <script>
@@ -144,19 +128,24 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     data = JSON.parse(this.responseText);
-                    // alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
-                    tab = `<table border="1">
-                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Max Shutter</th><th>Level</th><th>Image</th></tr>`;
+                    card = '';
                     for (i in data) {
                         pic1 = data[i].brand.toUpperCase() + "_" + data[i].model.toUpperCase();
-                        
-                        tab = tab + `<tr><td>${data[i].brand}</td><td>${data[i].model}</td><td>${data[i].price} 만원</td><td>${data[i].category}</td>
-                            <td>${data[i].shutter}</td><td>${data[i].level}</td>
-                            <td><a href = "https://www.google.com/search?q=${pic2}" target="_blank"><img src="static/image/cameras/${pic1}.jpg" width="130" height = "100" alt="Not Found"></a></td></tr>`;
+                        pic2 = data[i].brand.toUpperCase() + data[i].model.toUpperCase();
 
+                        card = card + `<div class="card">
+                            <div id="camera_img"><a href = "https://www.google.com/search?q=${pic2}" target="_blank"><img src="static/image/cameras/${pic1}.jpg" width="95%" height = "95%" alt="Not Found"></a></div>
+                            <div id="camera_prop">brand : ${data[i].brand}<br>
+                                model : ${data[i].model}<br>
+                                price : ${data[i].price}<br>
+                                category : ${data[i].category}<br>
+                                shutter : ${data[i].shutter}<br>
+                                exposure : ${data[i].exposure}<br>
+                                level : ${data[i].level}</div>
+                            </div>
+                            `;
                     }
-                    tab = tab + `</table>`;
-                    document.getElementById("cam1").innerHTML = tab;
+                    document.getElementById("card_list").innerHTML = card;
                 }
             };
             xhttp.open("POST", "getBrand");
@@ -166,32 +155,17 @@
                 + "&test_level=" + document.getElementById("c_level").value);
         };
 
-        function getCams() {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    data = this.responseText;
-                    alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
-                    data = JSON.parse(data)
-                    tab = `<table border="1">
-                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Shutter</th><th>Level</th></tr>`;
-                    let brand, model, price, option, shutter, level;
-                    for (i in data) {
-                        brand = data[i].brand;
-                        model = data[i].model;
-                        price = data[i].price;
-                        option = data[i].option;
-                        shutter = data[i].shutter;
-                        level = data[i].level;
-                        tab = tab + `<tr><td>${brand}</td><td>${model}</td><td>${price}</td><td>${option}</td><td>${shutter}</td><td>${level}</td></tr>`;
-                    }
-                    tab = tab + `</table>`;
-                    document.getElementById("cam1").innerHTML = tab;
-                }
-            };
-            xhttp.open("POST", "getCams");
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("brand=" + document.getElementById("c_brand").value);
+        window.onload = function () {
+            function onClick() {
+                document.querySelector('.modal_wrap').style.display = 'block';
+                document.querySelector('.black_bg').style.display = 'block';
+            }
+            function offClick() {
+                document.querySelector('.modal_wrap').style.display = 'none';
+                document.querySelector('.black_bg').style.display = 'none';
+            }
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.modal_close').addEventListener('click', offClick);
         };
     </script>
 

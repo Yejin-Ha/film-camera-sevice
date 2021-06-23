@@ -39,3 +39,7 @@
 3. 자가진단 페이지(selftest) - 완료
 4. 카메라 찾기 페이지(search) - 진행중
 5. pop up 기능 - 진행 사항 보고 구현할 지 고민하기
+
+
+contact - github
+sub  - 
