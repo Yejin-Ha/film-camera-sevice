@@ -20,4 +20,5 @@ create table cameras (
     shutter number(5) not null,
     exposure number(1) not null,
     test_level number(1) not null
+    pic_name varchar(30) not null
 );
