@@ -25,6 +25,20 @@ fields terminated by ','                # 각 필드는 , 기호로 구분한다
     test_level
 )
 
+
+
+options(load=-1, errors=-1)
+load data
+infile 'C:\Users\Playdata\Desktop\Mini Project\Tea-Time\database\FILM.csv'
+append into table films
+fields terminated by ','  
+(
+    film_brand,
+    film_name,
+    film_type,
+    iso
+)
+
 ```
 
 
@@ -32,3 +46,4 @@ fields terminated by ','                # 각 필드는 , 기호로 구분한다
 1. csv파일과 컨트롤 파일이 존재하는 디렉토리로 이동한다.
 2. cameras table이 존재하는 id/pw를 이용하여 다음의 명령문을 실행한다.
 > sqlldr 'SCOTT/TIGER' control='camera_table.txt'
+> sqlldr 'SCOTT/TIGER' control='film_table.txt'
