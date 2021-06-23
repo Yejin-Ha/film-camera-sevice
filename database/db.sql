@@ -21,3 +21,10 @@ create table cameras (
     exposure number(1) not null,
     test_level number(1) not null
 );
+
+create table films (
+    film_brand varchar2(20) not null,
+    film_name varchar2(30) primary key,
+    film_type varchar2(5) not null,
+    iso number(5) not null,
+);
