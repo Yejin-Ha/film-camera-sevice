@@ -56,6 +56,12 @@ def selectnick():
     else:
         return jsonify(False)
 
+# 카메라 검색 기능
+@app.route('/getBrand',methods=['POST'])
+def getBrand():
+    dao = Camera()
+    return dao.allCams(request.form.get('brand'),request.form.get('category'),request.form.get('test_level'))
+
 # 자가진단 화면으로 이동
 @app.route('/selftest', methods=['get'])
 def linktoselftest():
