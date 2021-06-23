@@ -26,5 +26,5 @@ create table films (
     film_brand varchar2(20) not null,
     film_name varchar2(30) primary key,
     film_type varchar2(5) not null,
-    iso number(5) not null,
+    iso number(5) not null
 );
