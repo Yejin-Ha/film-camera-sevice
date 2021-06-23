@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/camera.css')}}">
+</head>
+
+<body>
+
+
+
+    <div style="border: 1px solid gray; float: left; width: 100%;">
+        <h3>카메라 조회</h3><br>
+        <div>
+            BRAND
+            <select id="c_brand">
+                <option value=" "></option>
+                <option value="NIKON">NIKON</option>
+                <option value="CANON">CANON</option>
+                <option value="MINOLTA">MINOLTA</option>
+                <option value="SAMSUNG">SAMSUNG</option>
+                <option value="PENTAX">PENTAX</option>
+                <option value="OLYMPUS">OLYMPUS</option>
+                <option value="CONTAX">CONTAX</option>
+                <option value="KONICA">KONICA</option>
+                <option value="YASHICA">YASHICA</option>
+            </select>
+        </div>
+            <div>
+                CATEGORY
+                <select id="c_category">
+                    <option value=" "></option>
+                    <option value="SLR">SLR</option>
+                    <option value="RF">RANGE FINDER</option>
+                    <option value="PS">POINT&SHOOT</option>
+                </select>
+            </div>
+
+            <div>
+                LEVEL
+                <select id="c_level">
+                    <option value=" "></option>
+                    <option value="1">LV.1</option>
+                    <option value="2">LV.2</option>
+                    <option value="3">LV.3</option>
+                    <option value="4">LV.4</option>
+                    <option value="5">LV.5</option>
+                </select>
+            </div>
+
+        <button onclick="getBrand()">카메라 보기</button><br><br>
+        <div id="cam1"></div><br>
+    </div>
+
+    <script>
+        function getBrand() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    // alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
+                    data = JSON.parse(data)
+                    tab = `<table border="1">
+                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Shutter</th><th>Level</th><th>Image</th></tr>`;
+                    let brand, model, price, option, shutter, level, pic;
+                    for (i in data) {
+                        brand = data[i].brand;
+                        model = data[i].model;
+                        price = data[i].price;
+                        category = data[i].category;
+                        shutter = data[i].shutter;
+                        level = data[i].level;
+                        pic = data[i].brand + "_" + data[i].model + ".jpg" 
+                        tab = tab + `<tr><td>${brand}</td><td>${model}</td><td>${price}</td><td>${category}</td>
+                            <td>${shutter}</td><td>${level}</td><td><img src="../templates/images/${pic}</td></tr>`;
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("cam1").innerHTML = tab;
+                }
+            };
+            xhttp.open("POST", "getBrand");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("brand=" + document.getElementById("c_brand").value
+                + "&category=" + document.getElementById("c_category").value
+                + "&test_level=" + document.getElementById("c_level").value);
+        };
+    </script>
+
+    <script>
+        function getCams() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
+                    data = JSON.parse(data)
+                    tab = `<table border="1">
+                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Shutter</th><th>Level</th></tr>`;
+                    let brand, model, price, option, shutter, level;
+                    for (i in data) {
+                        brand = data[i].brand;
+                        model = data[i].model;
+                        price = data[i].price;
+                        option = data[i].option;
+                        shutter = data[i].shutter;
+                        level = data[i].level;
+                        tab = tab + `<tr><td>${brand}</td><td>${model}</td><td>${price}</td><td>${option}</td><td>${shutter}</td><td>${level}</td></tr>`;
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("cam1").innerHTML = tab;
+                }
+            };
+            xhttp.open("POST", "getCams");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("brand=" + document.getElementById("c_brand").value);
+        };
+
+    </script>
+
+
+</body>
+
+</html>
