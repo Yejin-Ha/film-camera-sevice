@@ -33,6 +33,7 @@
         min-height: 225px; */
     }
 </style>
+<script src="{{url_for('static', filename='js/menu.js')}}"></script>
 
 <body class="w3-content" style="max-width:1200px">
 
@@ -45,10 +46,10 @@
         </div>
         <!-- 메뉴에 링크 이동 걸기 -->
         <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-            <a href="#" class="w3-bar-item w3-button">카메라 추천받기</a>
-            <a href="#" class="w3-bar-item w3-button">카메라 찾기</a>
-            <a href="#" class="w3-bar-item w3-button">회원가입</a>
-            <a href="#" class="w3-bar-item w3-button" onclick="selftest()">Self Level Test</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktohome()">카메라 추천받기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktosearch()">카메라 찾기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktosignup()">회원가입</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktoselftest()">Self Level Test</a>
 
         </div>
         <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
@@ -169,23 +170,7 @@
             xhttp.send("nick=" + document.getElementById("newNick").value);
         }
 
-        function login() {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    all = JSON.parse(this.responseText);
-                    console.log('hi')
-                    console.log(all.access_token);
-                    localStorage.setItem("jwt-auth-token", "Bearer " + all.access_token);
-                    location.href = "user_login";
-                }
-            };
-            xhttp.open('POST', 'login');
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value);
-        };
-
-        function selftest() {
+        function linktoselftest() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
@@ -195,27 +180,16 @@
             xhttp.open('GET', 'selftest');
             xhttp.send();
         };
-
-        // Accordion 
-        function myAccFunc() {
-            var x = document.getElementById("demoAcc");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-
-        // Open and close sidebar
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("myOverlay").style.display = "block";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("myOverlay").style.display = "none";
-        }
+        function linktosignup() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    location.href = "signup";
+                }
+            };
+            xhttp.open('GET', 'signup');
+            xhttp.send();
+        };
     </script>
 
 </body>

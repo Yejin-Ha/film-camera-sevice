@@ -19,13 +19,6 @@ def selectcam():
     dao = Camera()
     return dao.recommend(request.form.get("id"), request.form.get("pw"))
 
-
-# 자가진단 화면으로 이동
-@app.route('/selftest', methods=['get'])
-def linktoselftest():
-    print('link to self test Page')
-    return render_template('selftest.html')
-
 # 유저인지 확인하는 역할
 @app.route('/login', methods=['POST'])
 def login_proc():
@@ -34,11 +27,6 @@ def login_proc():
     camera.update_level(user_info)
     return jsonify(result=200)
 
-# 회원가입 화면으로 이동
-@app.route('/signup', methods=['get'])
-def linktosignup():
-    print('sing up Page')
-    return render_template('signup.html')
 
 # 회원가입 기능
 @app.route("/signup", methods=["POST"])
@@ -68,15 +56,23 @@ def selectnick():
     else:
         return jsonify(False)
 
+# 자가진단 화면으로 이동
+@app.route('/selftest', methods=['get'])
+def linktoselftest():
+    print('link to self test Page')
+    return render_template('selftest.html')
+    
+# 회원가입 화면으로 이동
+@app.route('/signup', methods=['get'])
+def linktosignup():
+    print('sing up Page')
+    return render_template('signup.html')
 
-
-
-
-@app.route('/user_login', methods=['get'])
-def linktologin():
-    print('login Page')
-    return render_template('camera.html')
-
+# 카메라 검색 화면으로 이동
+@app.route('/search', methods=['get'])
+def linktosearch():
+    print('link to search search Page')
+    return render_template('search.html')
 
 if __name__ == "__main__":
     app.run(debug=True, port="5000", host="127.0.0.1")

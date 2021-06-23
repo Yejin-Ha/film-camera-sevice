@@ -5,33 +5,36 @@ import json
 import collections
 
 class Camera:
-    def recommend(self, id, pw):
+    def recommend(self, i_id, i_pw):
         data = []
         try:
             conn = cx_Oracle.connect(user="SCOTT", password="TIGER", dsn="xe")
             cur = conn.cursor()
             try:
-                cur.execute("select test_level from users where u_id=:id and u_pw=:pw", id=id, pw=pw)
+                cur.execute("select test_level from users where u_id=:u_id and u_pw=:u_pw", u_id=i_id, u_pw=i_pw)
                 check = cur.fetchone()
                 if check:
-                    cur.execute("select * from cameras where test_level= :test_level order by price", test_level=check)
+                    cur.execute("select * from cameras where test_level= :test_level order by price", test_level=check[0])
                     rows = cur.fetchall()
-                    v = []
-                    for row in rows:
-                        d = collections.OrderedDict()
-                        d['brand'] = row[0]
-                        d['model'] = row[1]
-                        d['price'] = row[2]
-                        d['category'] = row[3]
-                        d['shutter'] = row[4]
-                        d['exposure'] = row[5]
-                        d['test_level'] = row[6]
-                        v.append(d)
+                    if rows: 
+                        v = []
+                        for row in rows:
+                            d = collections.OrderedDict()
+                            d['brand'] = row[0]
+                            d['model'] = row[1]
+                            d['price'] = row[2]
+                            d['category'] = row[3]
+                            d['shutter'] = row[4]
+                            d['exposure'] = row[5]
+                            d['test_level'] = row[6]
+                            v.append(d)
 
-                    data = json.dumps(v, ensure_ascii=False)
-                    return data
+                        data = json.dumps(v, ensure_ascii=False)
+                        return data
+                    else:
+                        return "error_type_no_level"
                 else:
-                    return "false"
+                    return "error_type_no_user"
             except Exception as e:
                 print(e)
         except Exception as e:
@@ -65,8 +68,10 @@ class Camera:
         cur = conn.cursor()
 
         try:
-            cur.execute("insert into users values (seq_users.nextval, :u_id, :u_pw, :nick, 0)", u_id=dto.getU_id(), u_pw=dto.getU_pw(), nick=dto.getNick())
-            conn.commit()
+            cur.execute("select * from users where u_id=:id or nick=:nick", id=dto.getU_id(), nick=dto.getNick())
+            if not cur.fetchone():
+                cur.execute("insert into users values (seq_users.nextval, :u_id, :u_pw, :nick, 0)", u_id=dto.getU_id(), u_pw=dto.getU_pw(), nick=dto.getNick())
+                conn.commit()
         except Exception as e:
             print(e)
 
@@ -109,4 +114,6 @@ class Camera:
 if __name__=="__main__":
     a = Camera()
     b = User('hyj', 'asdf', 3)
-    print(a.update_level(b))
+    c = USERDTO('hyj', 'q', 'e')
+    print(a.recommend('a', 'asdf'))
+    # a.userinsert(c)

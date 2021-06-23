@@ -32,6 +32,7 @@
         min-height: 225px;
     }
 </style>
+<script src="{{url_for('static', filename='js/menu.js')}}"></script>
 
 <body class="w3-content" style="max-width:1200px">
 
@@ -44,10 +45,10 @@
         </div>
         <!-- 메뉴에 링크 이동 걸기 -->
         <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-            <a href="#" class="w3-bar-item w3-button">카메라 추천받기</a>
-            <a href="#" class="w3-bar-item w3-button">카메라 찾기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktohome()">카메라 추천받기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktosearch()">카메라 찾기</a>
             <a href="#" class="w3-bar-item w3-button" onclick="linktosignup()">회원가입</a>
-            <a href="#" class="w3-bar-item w3-button" onclick="selftest()">Self Level Test</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktoselftest()">Self Level Test</a>
 
         </div>
         <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
@@ -76,22 +77,19 @@
 
         <h2 style="color: aqua;">추천 카메라 확인하기</h2>
 
-        <label>당신의 레벨을 입력하세요</label>
         <br>
         <h5">(낮은 가격순으로 나옵니다.)</h5>
-            <input type="text" id="newTest_level"><button onclick="findcam()">추천카메라 확인</button>
+
+            <br>
+
+
+            id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.<br>
+            id : <input type="text" id="input_id"> / pw : <input type="password" id="input_pw"> <button
+                onclick="findcam()">카메라 추천받기</button>
 
             <br>
             <hr><br>
             <table id="demo"></table>
-
-
-        id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.<br>
-        id : <input type="text" id="input_id"> / pw : <input type="password" id="input_pw"> <button onclick="findcam()">카메라 추천받기</button>
-
-                <br>
-                <hr><br>
-                <table id="demo"></table>
 
     </div>
 
@@ -101,17 +99,23 @@
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    data = JSON.parse(this.responseText);
-                    console.log(data)
+                    console.log(this.responseText);
+                    if (this.responseText == 'error_type_no_level') {
+                        alert('self test를 먼저 진행해 주세요.')
+                        location.href = "selftest";
+                        
+                    } else if (this.responseText == 'error_type_no_user') {
+                        alert('회원이 아닙니다. 회원가입을 진행해 주세요.')
+                        location.href = "signup";
+                    } else {
+                        data = JSON.parse(this.responseText);
 
-                    tab = `<table border="1">
+                        tab = `<table border="1">
                 <tr><th>이미지</th><th>브랜드</th><th>모델명</th><th>가격</th><th>카테고리</th><th>셔터</th><th>노출측정방식</th><th>레벨</th></tr>`;
 
-                    for (no in data) {
-                        console.log('hi123123')
-                        pic = data[no].brand.toLowerCase() + "_" + data[no].model.toLowerCase()
-                        console.log(pic);
-                        tab = tab + `<tr>
+                        for (no in data) {
+                            pic = data[no].brand.toLowerCase() + "_" + data[no].model.toLowerCase()
+                            tab = tab + `<tr>
                             <td><img src="static/image/cameras/${pic}.jpg" width="200" heigh="200" alt="Not Found"></td>
                     <td>${data[no].brand}</td>
                     <td>${data[no].model}</td>
@@ -121,14 +125,15 @@
                     <td>${data[no].exposure}</td>
                     <td>${data[no].test_level}</td>
                 </tr>`;
+                        }
+                        tab = tab + `</table>`;
+                        document.getElementById("demo").innerHTML = tab;
                     }
-                    tab = tab + `</table>`;
-                    document.getElementById("demo").innerHTML = tab;
-                };
+                }
             };
             xhttp.open("POST", "camfind");
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("id="+document.getElementById('input_id')+"&pw="+document.getElementById('input_pw'));
+            xhttp.send("id=" + document.getElementById('input_id').value + "&pw=" + document.getElementById('input_pw').value);
         }
 
         function linktosignup() {
@@ -141,23 +146,6 @@
             xhttp.open('GET', 'signup');
             xhttp.send();
         }
-
-        function login() {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    all = JSON.parse(this.responseText);
-                    console.log('hi')
-                    console.log(all.access_token);
-                    // if
-                    localStorage.setItem("jwt-auth-token", "Bearer " + all.access_token);
-                    location.href = "user_login";
-                }
-            };
-            xhttp.open('POST', 'login');
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value);
-        };
 
         function selftest() {
             const xhttp = new XMLHttpRequest();
