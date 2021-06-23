@@ -7,37 +7,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    .w3-sidebar a {
-        font-family: "Roboto", sans-serif
-    }
 
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .w3-wide {
-        font-family: "Montserrat", sans-serif;
-    }
-
-    .login_box {
-        border: 1px solid;
-        width: 50%;
-        text-align: center;
-        height: 20vh;
-        padding-top: 5%;
-        min-height: 225px;
-    }
-</style>
 <script src="{{url_for('static', filename='js/menu.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static' , filename='css/cardstyle.css')}}">
+<link rel="stylesheet" href="{{url_for('static' , filename='css/modalstyle.css')}}">
+<link rel="stylesheet" href="{{url_for('static' , filename='css/default.css')}}">
 
 <body class="w3-content" style="max-width:1200px">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-collapse w3-top" style="z-index:3;width:250px;background-color: #00000057;"
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-top" style="z-index:3;width:250px;background-color: #d1dcf5b0;"
         id="mySidebar">
         <div class="w3-container w3-display-container w3-padding-16">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
@@ -52,8 +31,8 @@
 
         </div>
         <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
+        <a href="https://github.com/Yejin-Ha/film-camera-sevice" class="w3-bar-item w3-button w3-padding">Contact Us</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding" id="modal_btn">Subscribe</a>
     </nav>
 
     <!-- Top menu on small screens -->
@@ -74,23 +53,33 @@
         <header class="w3-container w3-xlarge">
             <p class="w3-left">Camera Recommendation</p>
         </header>
-
-        <h2 style="color: aqua;">추천 카메라 확인하기</h2>
+        <hr>
+        <div class="content_box">
+            <h4> id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.</h4>
+            * 결과는 낮은 금액순으로 출력됩니다. 
+            <div class="select_box">
+                id : <input type="text" id="input_id"> /  pw : <input type="password" id="input_pw"> <button
+                onclick="findcam()">카메라 추천받기</button>
+            </div>
+        </div>
 
         <br>
-        <h5">(낮은 가격순으로 나옵니다.)</h5>
+        <div id="card_list"></div>
 
-            <br>
-
-
-            id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.<br>
-            id : <input type="text" id="input_id"> / pw : <input type="password" id="input_pw"> <button
-                onclick="findcam()">카메라 추천받기</button>
-
-            <br>
-            <hr><br>
-            <table id="demo"></table>
-
+        <div class="black_bg"></div>
+        <div class="modal_wrap">
+            <div class="modal_close"><a href="#">close</a></div>
+            <div>
+                <div class="modal_header">
+                    <h3>멋쟁이 개발자들에게 투자하는 방법</h3>
+                </div>
+                <div class="modal_content">
+                    카카오 3333-07-0272132 <br>
+                    케이뱅크 100115000068 <br>
+                    국민 650702-01-409140 <br>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -99,35 +88,34 @@
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
+                    // console.log(this.responseText);
                     if (this.responseText == 'error_type_no_level') {
                         alert('self test를 먼저 진행해 주세요.')
                         location.href = "selftest";
-                        
+
                     } else if (this.responseText == 'error_type_no_user') {
                         alert('회원이 아닙니다. 회원가입을 진행해 주세요.')
                         location.href = "signup";
                     } else {
                         data = JSON.parse(this.responseText);
+                        card = '';
 
-                        tab = `<table border="1">
-                <tr><th>이미지</th><th>브랜드</th><th>모델명</th><th>가격</th><th>카테고리</th><th>셔터</th><th>노출측정방식</th><th>레벨</th></tr>`;
+                        for (i in data) {
+                            pic = data[i].brand + "_" + data[i].model
 
-                        for (no in data) {
-                            pic = data[no].brand.toLowerCase() + "_" + data[no].model.toLowerCase()
-                            tab = tab + `<tr>
-                            <td><img src="static/image/cameras/${pic}.jpg" width="200" heigh="200" alt="Not Found"></td>
-                    <td>${data[no].brand}</td>
-                    <td>${data[no].model}</td>
-                    <td>${data[no].price}만원</td>
-                    <td>${data[no].category}</td>
-                    <td>${data[no].shutter}</td>
-                    <td>${data[no].exposure}</td>
-                    <td>${data[no].test_level}</td>
-                </tr>`;
+                            card = card + `<div class="card">
+                            <div id="camera_img"><img src="static/image/cameras/${pic}.jpg" width="95%" height = "95%" alt="Not Found"></a></div>
+                                <div id="camera_prop">brand : ${data[i].brand}<br>
+                                model : ${data[i].model}<br>
+                                price : ${data[i].price}<br>
+                                category : ${data[i].category}<br>
+                                shutter : ${data[i].shutter}<br>
+                                exposure : ${data[i].exposure}<br>
+                                level : ${data[i].level}</div>
+                            </div>
+                            `;
                         }
-                        tab = tab + `</table>`;
-                        document.getElementById("demo").innerHTML = tab;
+                        document.getElementById("card_list").innerHTML = card;
                     }
                 }
             };
@@ -136,26 +124,17 @@
             xhttp.send("id=" + document.getElementById('input_id').value + "&pw=" + document.getElementById('input_pw').value);
         }
 
-        function linktosignup() {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    location.href = "signup";
-                }
-            };
-            xhttp.open('GET', 'signup');
-            xhttp.send();
-        }
-
-        function selftest() {
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    location.href = "selftest";
-                }
-            };
-            xhttp.open('GET', 'selftest');
-            xhttp.send();
+        window.onload = function () {
+            function onClick() {
+                document.querySelector('.modal_wrap').style.display = 'block';
+                document.querySelector('.black_bg').style.display = 'block';
+            }
+            function offClick() {
+                document.querySelector('.modal_wrap').style.display = 'none';
+                document.querySelector('.black_bg').style.display = 'none';
+            }
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.modal_close').addEventListener('click', offClick);
         };
     </script>
 
