@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/camera.css')}}">
+</head>
+
+<body>
+    <div style="border: 1px solid gray; float: left; width: 100%;">
+        <h3>카메라 조회해보자!</h3>
+        <p>가격순으로 정렬됩니다.</p>
+        <p>이미지 클릭시 카메라에 대한 검색 내용을 보실 수 있습니다.</p>
+        <div>
+            BRAND
+            <select id="c_brand">
+                <option value=" "></option>
+                <option value="NIKON">NIKON</option>
+                <option value="CANON">CANON</option>
+                <option value="MINOLTA">MINOLTA</option>
+                <option value="SAMSUNG">SAMSUNG</option>
+                <option value="PENTAX">PENTAX</option>
+                <option value="OLYMPUS">OLYMPUS</option>
+                <option value="CONTAX">CONTAX</option>
+                <option value="KONICA">KONICA</option>
+                <option value="YASHICA">YASHICA</option>
+            </select>
+        </div>
+        <div>
+            CATEGORY
+            <select id="c_category">
+                <option value=" "></option>
+                <option value="SLR">SLR</option>
+                <option value="RF">RANGE FINDER</option>
+                <option value="PS">POINT&SHOOT</option>
+            </select>
+        </div>
+
+        <div>
+            LEVEL
+            <select id="c_level">
+                <option value=" "></option>
+                <option value="1">LV.1</option>
+                <option value="2">LV.2</option>
+                <option value="3">LV.3</option>
+                <option value="4">LV.4</option>
+                <option value="5">LV.5</option>
+            </select>
+        </div>
+        <br>
+        <button onclick="getBrand()">카메라 보기</button><br><br>
+        <button onclick="fresh()">새로고침</button>
+        <div id="cam1"></div><br>
+    </div>
+
+    <script>
+        function fresh() {
+            location.reload();
+        }
+
+        function getBrand() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    // alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
+                    data = JSON.parse(data)
+                    tab = `<table border="1">
+                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Max Shutter</th><th>Level</th><th>Image</th></tr>`;
+                    for (i in data) {
+                        pic1 = data[i].brand.toUpperCase() + "_" + data[i].model.toUpperCase();
+                        pic2 = data[i].brand.toUpperCase() + " " + data[i].model.toUpperCase();
+
+                        tab = tab + `<tr><td>${data[i].brand}</td><td>${data[i].model}</td><td>${data[i].price} 만원</td><td>${data[i].category}</td>
+                            <td>${data[i].shutter}</td><td>${data[i].level}</td>
+                            <td><a href = "https://www.google.com/search?q=${pic2}" target="_blank"><img src="static/images/${pic1}.jpg" width="130" height = "100"></a></td></tr>`;
+
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("cam1").innerHTML = tab;
+                }
+            };
+            xhttp.open("POST", "getBrand");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("brand=" + document.getElementById("c_brand").value
+                + "&category=" + document.getElementById("c_category").value
+                + "&test_level=" + document.getElementById("c_level").value);
+        };
+    </script>
+
+    <script>
+        function getCams() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    data = this.responseText;
+                    alert(document.getElementById("c_brand").value + " 카메라 목록 불러오기!");
+                    data = JSON.parse(data)
+                    tab = `<table border="1">
+                        <tr><th>Brand</th><th>Model</th><th>Price</th><th>Option</th><th>Shutter</th><th>Level</th></tr>`;
+                    let brand, model, price, option, shutter, level;
+                    for (i in data) {
+                        brand = data[i].brand;
+                        model = data[i].model;
+                        price = data[i].price;
+                        option = data[i].option;
+                        shutter = data[i].shutter;
+                        level = data[i].level;
+                        tab = tab + `<tr><td>${brand}</td><td>${model}</td><td>${price}</td><td>${option}</td><td>${shutter}</td><td>${level}</td></tr>`;
+                    }
+                    tab = tab + `</table>`;
+                    document.getElementById("cam1").innerHTML = tab;
+                }
+            };
+            xhttp.open("POST", "getCams");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("brand=" + document.getElementById("c_brand").value);
+        };
+
+    </script>
+
+
+</body>
+
+</html>
