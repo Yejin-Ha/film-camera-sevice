@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .w3-sidebar a {
+        font-family: "Roboto", sans-serif
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .w3-wide {
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .box_hi {
+        display: flex;
+    }
+
+    .box1 {
+        width: 50%;
+    }
+
+    .question {
+        display: flex;
+    }
+
+    p {
+        margin: 0;
+        width: 70%;
+    }
+
+    .no {
+        width: 6%;
+    }
+</style>
+<script src="{{url_for('static', filename='js/menu.js')}}"></script>
+
+<body class="w3-content" style="max-width:1200px">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-top" style="z-index:3;width:250px;background-color: #00000057;"
+        id="mySidebar">
+        <div class="w3-container w3-display-container w3-padding-16">
+            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+            <h3 class="w3-wide"><b>HOME</b></h3>
+        </div>
+        <!-- 메뉴에 링크 이동 걸기 -->
+        <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+            <a href="#" class="w3-bar-item w3-button" onclick="linktohome()">카메라 추천받기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktosearch()">카메라 찾기</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktosignup()">회원가입</a>
+            <a href="#" class="w3-bar-item w3-button" onclick="linktoselftest()">Self Level Test</a>
+
+        </div>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
+    </nav>
+
+    <!-- Top menu on small screens -->
+    <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+        <div class="w3-bar-item w3-padding-24 w3-wide">HOME</div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
+                class="fa fa-bars"></i></a>
+    </header>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:250px;height: 100vh;">
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <p class="w3-left">Self Test</p>
+        </header>
+        <fieldset style="width: 70%;">
+            <legend><b>회원 로그인</b></legend>
+            회원이 아닌 경우엔 테스트를 해더라도 정보가 저장되지 않습니다.<br>
+            회원가입을 먼저 진행해 주세요. <br>
+            <label for="fname">id :</label><br>
+            <input type="text" id="insert_id""><br>
+            <label for=" lname">password :</label><br>
+            <input type="password" id="insert_pw"><br><br>
+            <!-- <button type="submit" onclick="login()"> login </button> -->
+
+        </fieldset> <br>
+        <fieldset class="box_hi" name="interest" style="width: 70%;">
+            <legend><b>카메라 선택시 고려사항</b></legend>
+            <div class="box1">
+                가격 <br>
+                성능 <br>
+                외관 <br>
+                휴대성 <br>
+            </div>
+            <div class="box2">
+                1 <input type="range" min="1" max="5" onblur="perfer1(this.value)"> 5<br>
+                1 <input type="range" min="1" max="5" onblur="perfer2(this.value)"> 5<br>
+                1 <input type="range" min="1" max="5" onblur="perfer3(this.value)"> 5<br>
+                1 <input type="range" min="1" max="5" onblur="perfer4(this.value)"> 5<br>
+            </div>
+
+        </fieldset> <br>
+        <fieldset class="survey" name="score" style="width: 70%;">
+            <legend><b>더 나은 카메라 선택을 위해 아래 설문지를 작성해주세요</b></legend>
+            <strong>주의 사항 : 답변을 하지 않은 문제는 점수를 획득하지 못합니다.</strong> <br><br>
+            <div class="question" id="no_1"><br>
+                <p>SLR 카메라의 뜻을 알고있나요?</p>
+                <input type="radio" id="no1_o" name="no1" value="O" onclick="submit1(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no1" value="X" onclick="submit1(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_2"><br>
+                <p>미놀타, 펜탁스라는 브랜드를 알고있나요?</p>
+                <input type="radio" id="no1_o" name="no2" value="O" onclick="submit2(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no2" value="X" onclick="submit2(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_3"><br>
+                <p>수치에 따른 조리개의 변화를 알고있나요?</p>
+                <input type="radio" id="no1_o" name="no3" value="O" onclick="submit3(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no3" value="X" onclick="submit3(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_4"><br>
+                <p>필름카메라를 2년 이상 사용해보셨나요?</p>
+                <input type="radio" id="no1_o" name="no4" value="O" onclick="submit4(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no4" value="X" onclick="submit4(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_5"><br>
+                <p>필름카메라를 두 개 이상 보유하고 있으신가요?</p>
+                <input type="radio" id="no1_o" name="no5" value="O" onclick="submit5(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no5" value="X" onclick="submit5(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_5"><br>
+                <p>기계식 카메라와 전자식 카메라의 차이를 알고 계신가요?</p>
+                <input type="radio" id="no1_o" name="no6" value="O" onclick="submit6(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no6" value="X" onclick="submit6(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_6"><br>
+                <p>노출의 3요소를 알고 계신가요?</p>
+                <input type="radio" id="no1_o" name="no7" value="O" onclick="submit7(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no7" value="X" onclick="submit7(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_7"><br>
+                <p>촬영모드 중 B모드의 의미에 대해 알고 계신가요?</p>
+                <input type="radio" id="no1_o" name="no8" value="O" onclick="submit8(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no8" value="X" onclick="submit8(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_8"><br>
+                <p>현재 판매되는 필름의 대략적인 시세를 알고 계신가요?</p>
+                <input type="radio" id="no1_o" name="no9" value="O" onclick="submit9(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no9" value="X" onclick="submit9(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <div class="question" id="no_9"><br>
+                <p>네거티브 필름과 포지티브 필름의 차이를 알고 계신가요?</p>
+                <input type="radio" id="no1_o" name="no10" value="O" onclick="submit10(this.value)" required>
+                <label for="no1_o" class="no">O</label>
+                <input type="radio" id="no1_x" name="no10" value="X" onclick="submit10(this.value)" required>
+                <label for="no1_x" class="no">X</label><br><br>
+            </div>
+
+            <input type="button" value="결과보기" onclick="final()">
+        </fieldset>
+    </div>
+
+
+    <script>
+        ans_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        function submit1(ans1) {
+            ans_list[0] = ans1;
+        };
+
+        function submit2(ans2) {
+            ans_list[1] = ans2;
+        };
+
+        function submit3(ans3) {
+            ans_list[2] = ans3;
+        };
+
+        function submit4(ans4) {
+            ans_list[3] = ans4;
+        };
+
+        function submit5(ans5) {
+            ans_list[4] = ans5;
+        };
+
+        function submit6(ans6) {
+            ans_list[5] = ans6;
+        };
+
+        function submit7(ans7) {
+            ans_list[6] = ans7;
+        };
+
+        function submit8(ans8) {
+            ans_list[7] = ans8;
+        };
+
+        function submit9(ans9) {
+            ans_list[8] = ans9;
+        };
+
+        function submit10(ans10) {
+            ans_list[9] = ans10;
+        };
+
+        function final() {
+            var result = ans_list.filter(n => n === "O").length;
+            result = parseInt(result / 2)
+            alert("레벨 " + result + "입니다.")
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    location.href = "/";
+                }
+            };
+            xhttp.open('POST', 'login');
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xhttp.send("id=" + document.getElementById('insert_id').value + "&pw=" + document.getElementById('insert_pw').value + "&test_level=" + result);
+        };
+    </script>
+
+</body>
+
+</html>
