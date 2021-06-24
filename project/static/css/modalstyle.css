@@ -8,6 +8,7 @@
     margin: -250px 0 0 -250px;
     background: white;
     z-index: 2;
+    animation: scaleUp 1s;
 }
 
 .black_bg {
@@ -43,7 +44,7 @@
 }
 
 .modal_header {
-    background-color: #92c1d8;
+    background-color: #9892d8;
     color: white;
     height: 60px;
 }
@@ -52,4 +53,15 @@
     margin-top: 0;
     height: 100%;
     padding-left: 35px;
+}
+
+@keyframes scaleUp {
+    from {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
 }
