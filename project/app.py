@@ -7,6 +7,11 @@ from camera_dto import CAMERADTO
 
 app = Flask(__name__)
 
+@app.route('/getfilm',methods=['POST'])
+def getFilm():
+    dao = Camera()
+    return dao.allFilms()
+
 # 첫 화면은 카메라 추천 받는 화면으로 하자
 @app.route('/', methods=['get'])
 def index():

@@ -1,4 +1,4 @@
-.modal_wrap {
+.sub_modal_wrap {
     display: none;
     width: 500px;
     min-height: 150px;
@@ -8,6 +8,7 @@
     margin: -250px 0 0 -250px;
     background: white;
     z-index: 2;
+    border-radius: 10px;
     animation: scaleUp 1s;
 }
 
@@ -23,7 +24,21 @@
     z-index: 1;
 }
 
-.modal_close {
+.film_modal_wrap {
+    display: none;
+    width: 500px;
+    min-height: 150px;
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    margin: -250px 0 0 -250px;
+    background: white;
+    z-index: 2;    
+    border-radius: 10px;
+    animation: scaleUp 1s;
+}
+
+.film_modal_close {
     width: 26px;
     height: 26px;
     position: absolute;
@@ -31,7 +46,23 @@
     right: 0;
 }
 
-.modal_close>a {
+.film_modal_close>a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+    text-indent: -9999px;
+}
+
+.sub_modal_close {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: -30px;
+    right: 0;
+}
+
+.sub_modal_close>a {
     display: block;
     width: 100%;
     height: 100%;
@@ -47,6 +78,7 @@
     background-color: #9892d8;
     color: white;
     height: 60px;
+    overflow: hidden;
 }
 
 .modal_header>h3 {

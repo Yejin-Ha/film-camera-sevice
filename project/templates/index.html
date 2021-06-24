@@ -30,9 +30,9 @@
             <a href="#" class="w3-bar-item w3-button" onclick="linktoselftest()">Self Level Test</a>
 
         </div>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">오늘의 필름 추천</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding" id="film_modal_btn">오늘의 필름 추천</a>
         <a href="https://github.com/Yejin-Ha/film-camera-sevice" class="w3-bar-item w3-button w3-padding">Contact Us</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding" id="modal_btn">Subscribe</a>
+        <a href="#footer" class="w3-bar-item w3-button w3-padding" id="sub_modal_btn">Subscribe</a>
     </nav>
 
     <!-- Top menu on small screens -->
@@ -56,10 +56,10 @@
         <hr>
         <div class="content_box">
             <h4> id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.</h4>
-            * 결과는 낮은 금액순으로 출력됩니다. 
+            * 결과는 낮은 금액순으로 출력됩니다.
             <div class="select_box">
-                id : <input type="text" id="input_id"> /  pw : <input type="password" id="input_pw"> <button
-                onclick="findcam()">카메라 추천받기</button>
+                id : <input type="text" id="input_id"> / pw : <input type="password" id="input_pw"> <button
+                    onclick="findcam()">카메라 추천받기</button>
             </div>
         </div>
 
@@ -67,8 +67,19 @@
         <div id="card_list"></div>
 
         <div class="black_bg"></div>
-        <div class="modal_wrap">
-            <div class="modal_close"><a href="#">close</a></div>
+        <div class="film_modal_wrap">
+            <div class="film_modal_close"><a href="#">close</a></div>
+            <div>
+                <div class="modal_header">
+                    <h3>오늘의 필름</h3>
+                </div>
+                <div id="letters" style="text-align: center;"></div>
+                <div id="rand_films" style="text-align: center;"></div>
+                <div id="desc_films" style="padding-left: 10%;padding-bottom: 20px;"></div>
+            </div>
+        </div>
+        <div class="sub_modal_wrap">
+            <div class="sub_modal_close"><a href="#">close</a></div>
             <div>
                 <div class="modal_header">
                     <h3>멋쟁이 개발자들에게 투자하는 방법</h3>
@@ -83,6 +94,8 @@
     </div>
 
     <script>
+        desc_array = ["감성적인 느낌을 주는!", "요즘 핫한!", "요즘 계절에 딱 맞는!", "완전 강추하는 필름!", "오늘은 이게 딱!", "찍어보면 반할껄~!", "이걸로 가즈아ㅏㅏㅏ!!"]
+
         // 카메라 추천하는 함수
         function findcam() {
             const xhttp = new XMLHttpRequest();
@@ -107,7 +120,7 @@
                             <div id="camera_img"><img src="static/image/cameras/${pic}.jpg" width="95%" height = "95%" alt="Not Found"></a></div>
                                 <div id="camera_prop">brand : ${data[i].brand}<br>
                                 model : ${data[i].model}<br>
-                                price : ${data[i].price}<br>
+                                price : ${data[i].price} 만원<br>
                                 category : ${data[i].category}<br>
                                 shutter : ${data[i].shutter}<br>
                                 exposure : ${data[i].exposure}<br>
@@ -125,16 +138,69 @@
         }
 
         window.onload = function () {
-            function onClick() {
-                document.querySelector('.modal_wrap').style.display = 'block';
+            function onClick1() {
+                document.querySelector('.film_modal_wrap').style.display = 'block';
                 document.querySelector('.black_bg').style.display = 'block';
-            }
-            function offClick() {
-                document.querySelector('.modal_wrap').style.display = 'none';
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        data = JSON.parse(this.responseText);
+                        random_index = Math.floor(Math.random() * data.length);
+                        film = data[random_index].film_brand.toUpperCase() + "_" + data[random_index].film_name.toUpperCase();
+                        film_search = data[random_index].film_brand.toUpperCase() + " " + data[random_index].film_name.toUpperCase();
+
+                        lettering = Math.floor(Math.random() * desc_array.length)
+
+                        if (data[random_index].film_type == "CN") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/image/films/${film}.jpg" width="90%"></a><br><hr>`
+                            document.getElementById("desc_films").innerHTML =
+                                `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                            <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                <b>종류 :</b> 컬러 네거티브 필름<br>
+                                    <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        } else if (data[random_index].film_type == "BW") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/image/films/${film}.jpg" width="90%"></a><br><hr>`
+                            document.getElementById("desc_films").innerHTML =
+                                `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                                <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                    <b>종류 :</b> 흑백 필름<br>
+                                        <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        } else if (data[random_index].film_type == "P") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/image/films/${film}.jpg" width="90%"></a><br><hr>`
+                            document.getElementById("desc_films").innerHTML =
+                                `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                                <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                    <b>종류 :</b> 슬라이드 필름<br>
+                                        <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        }
+                    }
+                };
+                xhttp.open("POST", "getfilm");
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send();
+            };
+            function onClick2() {
+                document.querySelector('.sub_modal_wrap').style.display = 'block';
+                document.querySelector('.black_bg').style.display = 'block';
+            };
+            function offClick1() {
+                document.querySelector('.film_modal_wrap').style.display = 'none';
                 document.querySelector('.black_bg').style.display = 'none';
-            }
-            document.getElementById('modal_btn').addEventListener('click', onClick);
-            document.querySelector('.modal_close').addEventListener('click', offClick);
+            };
+            function offClick2() {
+                document.querySelector('.sub_modal_wrap').style.display = 'none';
+                document.querySelector('.black_bg').style.display = 'none';
+            };
+            document.getElementById('film_modal_btn').addEventListener('click', onClick1);
+            document.getElementById('sub_modal_btn').addEventListener('click', onClick2);
+            document.querySelector('.film_modal_close').addEventListener('click', offClick1);
+            document.querySelector('.sub_modal_close').addEventListener('click', offClick2);
         };
     </script>
 
