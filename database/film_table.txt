@@ -1,0 +1,11 @@
+options(load=-1, errors=-1)
+load data
+infile 'C:\Users\YEIN\Desktop\python\Mini_Project_01\film-camera-sevice\database\FILM.csv'
+append into table films
+fields terminated by ','  
+(
+    film_brand,
+    film_name,
+    film_type,
+    iso
+)
