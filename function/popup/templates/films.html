@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/film.css')}}">
+</head>
+
+<body>
+    <div style="border: 1px solid gray; float: left; width: 50%;">
+        <h3>필름 추천 받아보자!!</h3> <br><br>
+
+    <button type='button' id="modal_btn">필름 추천!</button>
+    <div class="black_bg"></div>
+    <div class="modal_wrap">
+        <div class="modal_close"><a href="#">close</a></div>
+        <div>
+            <p style="font-size: 25px; padding-left: 20px; color: rgb(10, 88, 107);"><b>오늘의 필름</b></p>
+            <hr>
+            <div id="letters" style="text-align: center;"></div>
+            <div id="rand_films" style="text-align: center; size: 90%;"></div>
+            <div id="desc_films" style="padding-left: 10%;"></div>
+
+        </div>
+        
+    </div>
+    
+    
+    <script>
+        desc_array = ["감성적인 느낌을 주는!","요즘 핫한!", "요즘 계절에 딱 맞는!", "완전 강추하는 필름!", "오늘은 이게 딱!", "찍어보면 반할껄~!","이걸로 가즈아ㅏㅏㅏ!!"]
+        
+        window.onload = function () {
+
+            function onClick() {
+                document.querySelector('.modal_wrap').style.display = 'block';
+                document.querySelector('.black_bg').style.display = 'block';
+                const xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        data = this.responseText;
+                        data = JSON.parse(data)
+                        random_index = Math.floor(Math.random() * data.length);
+                        film = data[random_index].film_brand.toUpperCase() + "_" + data[random_index].film_name.toUpperCase();
+                        film_search = data[random_index].film_brand.toUpperCase() + " " + data[random_index].film_name.toUpperCase();
+
+                        lettering = Math.floor(Math.random() * desc_array.length)
+
+                        if (data[random_index].film_type == "CN") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/films/${film}.jpg" width="90%"></a><br><hr><br>`
+                            document.getElementById("desc_films").innerHTML =
+                            `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                            <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                <b>종류 :</b> 컬러 네거티브 필름<br>
+                                    <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        } else if (data[random_index].film_type == "BW") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/films/${film}.jpg" width="90%"></a><br><hr><br>`
+                            document.getElementById("desc_films").innerHTML =
+                            `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                                <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                    <b>종류 :</b> 흑백 필름<br>
+                                        <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        } else if (data[random_index].film_type == "P") {
+                            document.getElementById("letters").innerText = desc_array[lettering]
+                            document.getElementById("rand_films").innerHTML =
+                                `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/films/${film}.jpg" width="90%"></a><br><hr><br>`
+                            document.getElementById("desc_films").innerHTML =
+                            `<b>브랜드 :</b> ${data[random_index].film_brand}<br>
+                                <b>모델명 :</b> ${data[random_index].film_name}<br>
+                                    <b>종류 :</b> 슬라이드 필름<br>
+                                        <b>감도 :</b> ${data[random_index].iso}<br>`;
+                        }
+
+                        // document.getElementById("rand_films").innerHTML =
+                        //     `<a href="https://www.google.com/search?q=${film_search}" target="_blank"><img src="static/films/${film}.jpg" width="90%"></a><br><hr><br>
+                        //     브랜드 : ${data[random_index].film_brand}<br>
+                        //         모델명 : ${data[random_index].film_name}<br>
+                        //         종류 : ${data[random_index].film_type}<br>
+                        //         감도 : ${data[random_index].iso}<br>`
+                    }
+                };
+                xhttp.open("POST", "getBrand");
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send();
+                // };
+            }
+
+
+            function offClick() {
+                document.querySelector('.modal_wrap').style.display = 'none';
+                document.querySelector('.black_bg').style.display = 'none';
+            }
+
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.modal_close').addEventListener('click', offClick);
+
+        };
+
+    </script>
+
+
+</body>
+
+</html>
