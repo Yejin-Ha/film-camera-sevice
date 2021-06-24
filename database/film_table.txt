@@ -1,6 +1,6 @@
 options(load=-1, errors=-1)
 load data
-infile 'C:\Users\YEIN\Desktop\python\Mini_Project_01\film-camera-sevice\database\FILM.csv'
+infile 'C:\Users\Playdata\Desktop\Mini Project\Tea-Time\database\FILM.csv'
 append into table films
 fields terminated by ','  
 (
