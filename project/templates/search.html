@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="{{url_for('static' , filename='css/modalstyle.css')}}">
 <link rel="stylesheet" href="{{url_for('static' , filename='css/default.css')}}">
 
+
 <body class="w3-content" style="max-width:1200px">
 
     <!-- Sidebar/menu -->
@@ -37,9 +38,8 @@
 
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-        <div class="w3-bar-item w3-padding-24 w3-wide">HOME</div>
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
-                class="fa fa-bars"></i></a>
+        <div class="w3-bar-item w3-padding-24 w3-wide" onclick="linktohome()">HOME</div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"></a>
     </header>
 
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -51,20 +51,56 @@
 
         <!-- Top header -->
         <header class="w3-container w3-xlarge">
-            <p class="w3-left">Camera Recommendation</p>
+            <p class="w3-left">Search Camera</p>
         </header>
         <hr>
         <div class="content_box">
-            <h4> id와 비밀번호를 입력하면 자동으로 카메라를 추천합니다.</h4>
-            * 결과는 낮은 금액순으로 출력됩니다. 
+            <h4>원하는 성능의 카메라를 검색합니다.</h4>
+            * 결과는 낮은 금액순으로 정렬됩니다. <br>
+            * 이미지 클릭시 카메라에 대한 검색 내용을 보실 수 있습니다.
             <div class="select_box">
-                id : <input type="text" id="input_id"> /  pw : <input type="password" id="input_pw"> <button
-                onclick="findcam()">카메라 추천받기</button>
-            </div>
-        </div>
+                <div>
+                    BRAND
+                    <select id="c_brand">
+                        <option value=" "></option>
+                        <option value="NIKON">NIKON</option>
+                        <option value="CANON">CANON</option>
+                        <option value="MINOLTA">MINOLTA</option>
+                        <option value="SAMSUNG">SAMSUNG</option>
+                        <option value="PENTAX">PENTAX</option>
+                        <option value="OLYMPUS">OLYMPUS</option>
+                        <option value="CONTAX">CONTAX</option>
+                        <option value="KONICA">KONICA</option>
+                        <option value="YASHICA">YASHICA</option>
+                    </select>
+                </div>
+                <div>
+                    CATEGORY
+                    <select id="c_category">
+                        <option value=" "></option>
+                        <option value="SLR">SLR</option>
+                        <option value="RF">RANGE FINDER</option>
+                        <option value="PS">POINT&SHOOT</option>
+                    </select>
+                </div>
 
-        <br>
-        <div id="card_list"></div>
+                <div>
+                    LEVEL
+                    <select id="c_level">
+                        <option value=" "></option>
+                        <option value="1">LV.1</option>
+                        <option value="2">LV.2</option>
+                        <option value="3">LV.3</option>
+                        <option value="4">LV.4</option>
+                        <option value="5">LV.5</option>
+                    </select>
+                </div>
+                <button onclick="getBrand()">카메라 보기</button>
+                <button onclick="fresh()">새로고침</button>
+            </div>
+
+            <div id="card_list"></div>
+        </div>
 
         <div class="black_bg"></div>
         <div class="modal_wrap">
@@ -83,29 +119,23 @@
     </div>
 
     <script>
-        // 카메라 추천하는 함수
-        function findcam() {
+        function fresh() {
+            location.reload();
+        };
+
+        function getBrand() {
             const xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    // console.log(this.responseText);
-                    if (this.responseText == 'error_type_no_level') {
-                        alert('self test를 먼저 진행해 주세요.')
-                        location.href = "selftest";
+                    data = JSON.parse(this.responseText);
+                    card = '';
+                    for (i in data) {
+                        pic1 = data[i].brand.toUpperCase() + "_" + data[i].model.toUpperCase();
+                        pic2 = data[i].brand.toUpperCase() + data[i].model.toUpperCase();
 
-                    } else if (this.responseText == 'error_type_no_user') {
-                        alert('회원이 아닙니다. 회원가입을 진행해 주세요.')
-                        location.href = "signup";
-                    } else {
-                        data = JSON.parse(this.responseText);
-                        card = '';
-
-                        for (i in data) {
-                            pic = data[i].brand + "_" + data[i].model
-
-                            card = card + `<div class="card">
-                            <div id="camera_img"><img src="static/image/cameras/${pic}.jpg" width="95%" height = "95%" alt="Not Found"></a></div>
-                                <div id="camera_prop">brand : ${data[i].brand}<br>
+                        card = card + `<div class="card">
+                            <div id="camera_img"><a href = "https://www.google.com/search?q=${pic2}" target="_blank"><img src="static/image/cameras/${pic1}.jpg" width="95%" height = "95%" alt="Not Found"></a></div>
+                            <div id="camera_prop">brand : ${data[i].brand}<br>
                                 model : ${data[i].model}<br>
                                 price : ${data[i].price}<br>
                                 category : ${data[i].category}<br>
@@ -114,15 +144,16 @@
                                 level : ${data[i].level}</div>
                             </div>
                             `;
-                        }
-                        document.getElementById("card_list").innerHTML = card;
                     }
+                    document.getElementById("card_list").innerHTML = card;
                 }
             };
-            xhttp.open("POST", "camfind");
+            xhttp.open("POST", "getBrand");
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("id=" + document.getElementById('input_id').value + "&pw=" + document.getElementById('input_pw').value);
-        }
+            xhttp.send("brand=" + document.getElementById("c_brand").value
+                + "&category=" + document.getElementById("c_category").value
+                + "&test_level=" + document.getElementById("c_level").value);
+        };
 
         window.onload = function () {
             function onClick() {
