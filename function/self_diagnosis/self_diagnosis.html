@@ -90,35 +90,43 @@
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
+        <div class="question" id="no_5"><br>
+            <p>기계식 카메라와 전자식 카메라의 차이를 알고 계신가요?</p>
+            <input type="radio" id="no1_o" name="no5" value="O" onclick="submit6(this.value)" required>
+            <label for="no1_o" class="no">O</label>
+            <input type="radio" id="no1_x" name="no5" value="X" onclick="submit6(this.value)" required>
+            <label for="no1_x" class="no">X</label><br><br>
+        </div>
+
         <div class="question" id="no_6"><br>
             <p>노출의 3요소를 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no6" value="O" onclick="submit6(this.value)" required>
+            <input type="radio" id="no1_o" name="no6" value="O" onclick="submit7(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no6" value="X" onclick="submit6(this.value)" required>
+            <input type="radio" id="no1_x" name="no6" value="X" onclick="submit7(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_7"><br>
             <p>촬영모드 중 B모드의 의미에 대해 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no7" value="O" onclick="submit7(this.value)" required>
+            <input type="radio" id="no1_o" name="no7" value="O" onclick="submit8(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no7" value="X" onclick="submit7(this.value)" required>
+            <input type="radio" id="no1_x" name="no7" value="X" onclick="submit8(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_8"><br>
             <p>현재 판매되는 필름의 대략적인 시세를 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no8" value="O" onclick="submit8(this.value)" required>
+            <input type="radio" id="no1_o" name="no8" value="O" onclick="submit9(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no8" value="X" onclick="submit8(this.value)" required>
+            <input type="radio" id="no1_x" name="no8" value="X" onclick="submit9(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
         <div class="question" id="no_9"><br>
             <p>네거티브 필름과 포지티브 필름의 차이를 알고 계신가요?</p>
-            <input type="radio" id="no1_o" name="no9" value="O" onclick="submit9(this.value)" required>
+            <input type="radio" id="no1_o" name="no9" value="O" onclick="submit10(this.value)" required>
             <label for="no1_o" class="no">O</label>
-            <input type="radio" id="no1_x" name="no9" value="X" onclick="submit9(this.value)" required>
+            <input type="radio" id="no1_x" name="no9" value="X" onclick="submit10(this.value)" required>
             <label for="no1_x" class="no">X</label><br><br>
         </div>
 
@@ -126,7 +134,7 @@
     </fieldset>
 
     <script>
-        ans_list = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ans_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         function submit1(ans1) {
             ans_list[0] = ans1;
         };
@@ -161,6 +169,10 @@
 
         function submit9(ans9) {
             ans_list[8] = ans9;
+        };
+
+        function submit10(ans10) {
+            ans_list[9] = ans10;
         };
 
         function final() {
